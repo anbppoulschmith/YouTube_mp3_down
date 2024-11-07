@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # Output directory
-output_dirc = "Output"
+output_dirc = "output"
 if not os.path.exists(output_dirc):
     os.makedirs(output_dirc)
 
