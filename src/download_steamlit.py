@@ -1,7 +1,7 @@
 from pytubefix import YouTube
 from io import BytesIO
 
-def download_songs_streamlit(url, output_path):
+def download_songs_streamlit(url):
     try:
         # Initialize the Youtube opject
         vid = YouTube(url)

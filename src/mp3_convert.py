@@ -13,19 +13,15 @@ def mp3_convert():
         youtube_link = st.text_input("Youtube link")
 
         if st.button('Convert'):
-            output_dir = "output"
-            os.makedirs(output_dir, exist_ok = True)
+            mp3_data, file_name = download_songs_streamlit(youtube_link)
 
-            filepath = download_songs_streamlit(youtube_link, output_dir)
-
-            if filepath:
-                with open(filepath, "rb") as file:
-                    st.success("Conversion successful! Click to donwload below")
-                    st.download_button(
-                        label="Download mp3",
-                        data=file,
-                        file_name=os.path.basename(filepath),
-                        mime="audio/mpeg"
-                    )
+            if mp3_data:
+                st.success("Conversion successful! Click to donwload below")
+                st.download_button(
+                    label="Download mp3",
+                    data=mp3_data,
+                    file_name=os.path.basename(file_name),
+                    mime="audio/mpeg"
+                )
             else:
                 st.error("Failed to download or convert the Youtube link")
