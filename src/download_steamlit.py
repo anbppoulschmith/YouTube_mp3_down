@@ -2,6 +2,10 @@ from pytubefix import YouTube
 from io import BytesIO
 
 def download_songs_streamlit(url):
+    if not url or not isinstance(url, str):
+        print("Invalid YouTube URL provided")
+        return None, None
+    
     try:
         # Initialize the Youtube opject
         vid = YouTube(url)
@@ -27,6 +31,7 @@ def download_songs_streamlit(url):
 
     except Exception as e:
         print(f"Download failed for {url}: {e}")
+        return None, None
 
 
 def download_video(url, output_path):
@@ -44,7 +49,3 @@ def download_video(url, output_path):
 
     except Exception as e:
         print(f"Downloaded failed for {url}: {e}")
-
-
-
-download_songs_streamlit("https://www.youtube.com/watch?v=7hNJFP4XOZE&list=RD7hNJFP4XOZE&start_radio=1")
