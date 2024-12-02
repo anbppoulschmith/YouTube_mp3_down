@@ -13,9 +13,13 @@ def download_songs_streamlit(url):
         # Create safe title
         safe_title = "".join([c if c.isalnum() or c in " ._-()" else "_" for c in title]) + ".mp3"
 
-        # Download the audio stream 
+        # Creta a byte buffer
         buffer = BytesIO()
-        audio_stream.download(buffer)
+
+        # Temp file
+        temp_file_path = audio_stream.download()
+        with open(temp_file_path, 'rb') as temp_file:
+            buffer.write(temp_file.read())
         buffer.seek(0)
         print(f"Downloaded and converted to mp3: {title}")
 
@@ -40,3 +44,7 @@ def download_video(url, output_path):
 
     except Exception as e:
         print(f"Downloaded failed for {url}: {e}")
+
+
+
+download_songs_streamlit("https://www.youtube.com/watch?v=7hNJFP4XOZE&list=RD7hNJFP4XOZE&start_radio=1")
