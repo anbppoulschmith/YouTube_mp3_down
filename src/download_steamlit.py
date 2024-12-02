@@ -1,4 +1,5 @@
 from pytubefix import YouTube
+from io import BytesIO
 
 def download_songs_streamlit(url, output_path):
     try:
@@ -13,10 +14,12 @@ def download_songs_streamlit(url, output_path):
         safe_title = "".join([c if c.isalnum() or c in " ._-()" else "_" for c in title]) + ".mp3"
 
         # Download the audio stream 
-        file_path = audio_stream.download(output_path=output_path, filename=safe_title)
+        buffer = BytesIO()
+        audio_stream.download(buffer)
+        buffer.seek(0)
         print(f"Downloaded and converted to mp3: {title}")
 
-        return file_path
+        return buffer, safe_title
 
     except Exception as e:
         print(f"Download failed for {url}: {e}")
